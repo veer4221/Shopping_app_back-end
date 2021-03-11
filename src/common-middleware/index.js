@@ -12,10 +12,15 @@ async function requireSignin(req, res, next) {
   }
   next();
 }
-async function userMiddleware(req, res, next) {}
+async function userMiddleware(req, res, next) {
+  if (req.user.role !== "user") {
+    return res.status(400).json({ messager: "User Access Denied" });
+  }
+  next();
+}
 async function adminMiddleware(req, res, next) {
   if (req.user.role !== "admin") {
-    return res.status(400).json({ messager: "Access Denied" });
+    return res.status(400).json({ messager: "Admin Access Denied" });
   }
   next();
 }
