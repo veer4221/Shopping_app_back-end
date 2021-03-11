@@ -4,11 +4,7 @@ const {
   isRequestValidated,
   validateSigninRequest,
 } = require("../validators/auth.validators");
-const {
-  signUp,
-  signIn,
-  requireSignin,
-} = require("../controller/auth.controller");
+const { signUp, signIn } = require("../controller/auth.controller");
 router.post("/signin", validateSigninRequest, isRequestValidated, signIn);
 router.post("/signup", validateSignupRequest, isRequestValidated, signUp);
 

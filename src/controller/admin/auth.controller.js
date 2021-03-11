@@ -3,16 +3,19 @@ const jwt = require("jsonwebtoken");
 module.exports = {
   signUp,
   signIn,
-  requireSignin,
 };
 async function signIn(req, res) {
   let usr = await User.findOne({ email: req.body.email });
   console.log(usr);
   if (usr) {
     if (usr.authenticate(req.body.password) && usr.role === "admin") {
-      const token = jwt.sign({ _id: usr._id }, process.env.JWT_SECRET, {
-        expiresIn: "1h",
-      });
+      const token = jwt.sign(
+        { _id: usr._id, role: usr.role },
+        process.env.JWT_SECRET,
+        {
+          expiresIn: "1h",
+        }
+      );
       const { firstName, lastName, email, role, fullName } = usr;
       res.status(200).json({
         token,
@@ -60,12 +63,4 @@ async function signUp(req, res) {
       });
     }
   });
-}
-
-async function requireSignin(req, res, next) {
-  const token = req.headers.authorization.split(" ")[1];
-  const user = jwt.decode(token, process.env.JWT_SECRET);
-  console.log(user);
-  req.user = user;
-  next();
 }

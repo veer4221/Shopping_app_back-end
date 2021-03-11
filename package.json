@@ -5,7 +5,7 @@
   "main": "/src/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start":"nodemon /src/server.js"
+    "start": "nodemon /src/server.js"
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +16,7 @@
     "express": "^4.17.1",
     "express-validator": "^6.10.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.11.19"
+    "mongoose": "^5.11.15",
+    "slugify": "^1.4.7"
   }
 }

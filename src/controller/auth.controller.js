@@ -4,7 +4,6 @@ const { validationResult } = require("express-validator");
 module.exports = {
   signUp,
   signIn,
-  requireSignin,
 };
 async function signIn(req, res) {
   let usr = await User.findOne({ email: req.body.email });
@@ -59,12 +58,4 @@ async function signUp(req, res) {
       });
     }
   });
-}
-
-async function requireSignin(req, res, next) {
-  const token = req.headers.authorization.split(" ")[1];
-  const user = jwt.decode(token, process.env.JWT_SECRET);
-  console.log(user);
-  req.user = user;
-  next();
 }
