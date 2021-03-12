@@ -7,6 +7,7 @@ const userRoutes = require("./routes/auth.rout");
 const AdminRoutes = require("./routes/admin/auth.rout");
 const categoryRoutes = require("./routes/category.rout");
 const productRoutes = require("./routes/product.rout");
+const cartRoutes = require("./routes/cart.rout");
 const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -22,6 +23,7 @@ app.use("/api", userRoutes);
 app.use("/api", AdminRoutes);
 app.use("/api", categoryRoutes);
 app.use("/api", productRoutes);
+app.use("/api", cartRoutes);
 mongoose.connect(process.env.MONGO_URL, options);
 mongoose.connection.once("open", () => console.log("Db connected"));
 app.listen(PORT, () => console.log(`http://localhost:${PORT}`));

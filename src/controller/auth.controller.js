@@ -10,9 +10,13 @@ async function signIn(req, res) {
   console.log(usr);
   if (usr) {
     if (usr.authenticate(req.body.password)) {
-      const token = jwt.sign({ _id: usr._id }, process.env.JWT_SECRET, {
-        expiresIn: "1h",
-      });
+      const token = jwt.sign(
+        { _id: usr._id, role: usr.role },
+        process.env.JWT_SECRET,
+        {
+          expiresIn: "1h",
+        }
+      );
       const { firstName, lastName, email, role, fullName } = usr;
       res.status(200).json({
         token,
