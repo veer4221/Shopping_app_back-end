@@ -9,6 +9,8 @@ const categoryRoutes = require("./routes/category.rout");
 const productRoutes = require("./routes/product.rout");
 const cartRoutes = require("./routes/cart.rout");
 const path = require("path");
+const cors = require('cors');
+
 const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -19,6 +21,7 @@ env.config();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.json());
+app.use(cors());
 const PORT = process.env.PORT;
 app.use("/public", express.static(path.join(__dirname, "uploads")));
 app.use("/api", userRoutes);
@@ -28,4 +31,4 @@ app.use("/api", productRoutes);
 app.use("/api", cartRoutes);
 mongoose.connect(process.env.MONGO_URL, options);
 mongoose.connection.once("open", () => console.log("Db connected"));
-app.listen(PORT, () => console.log(`http://localhost:${PORT}`));
+app.listen(PORT, () => {console.log(`http://localhost:${PORT}`); console.log("Veer Challenge is very hard 💥🔥. But you will do it😎🚩 ")});

@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 module.exports = {
   signUp,
   signIn,
+  signout,
 };
 async function signIn(req, res) {
   let usr = await User.findOne({ email: req.body.email });
@@ -17,9 +18,10 @@ async function signIn(req, res) {
         }
       );
       const { firstName, lastName, email, role, fullName } = usr;
+      res.cookie("token", token, { expiresIn: "1h" });
       res.status(200).json({
         token,
-        usr: {
+        user: {
           firstName,
           lastName,
           email,
@@ -63,4 +65,13 @@ async function signUp(req, res) {
       });
     }
   });
+}
+
+async function signout(req, res) {
+  console.log(req.authorization);
+  console.log("auth");
+  console.log(req.headers.authorization);
+  console.log(req);
+  res.clearCookie("token");
+  res.status(200).json({ message: "signout successfully....!" });
 }
